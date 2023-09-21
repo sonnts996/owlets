@@ -1,0 +1,14 @@
+{
+  "@@locale": "en",
+  "pageNotFoundButton": "{canPop, select, false{Back to home} true{Back to previous page} other{Back to home}}",
+  "@pageNotFoundButton": {
+    "descriptions": "Show Page Not Found back button",
+    "placeholders": {
+      "canPop": {
+        "type": "String"
+      }
+    }
+  },
+  "@_Wallet": {},
+  "createWalletTitle":"Create New Wallet"
+}
