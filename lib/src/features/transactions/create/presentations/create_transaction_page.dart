@@ -13,7 +13,5 @@ class CreateTransactionPage extends StatefulWidget {
 
 class _CreateTransactionPageState extends State<CreateTransactionPage> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Placeholder(),);
-  }
+  Widget build(BuildContext context) => Scaffold(body: Placeholder(),);
 }

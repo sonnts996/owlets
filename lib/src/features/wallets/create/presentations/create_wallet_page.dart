@@ -7,53 +7,99 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:objectx/objectx.dart';
 import 'package:owlet_flutter/owlets.dart';
 
-import '../../../../../base/base.dart';
-import '../../../../../base/components/app_textfields.dart';
-import '../../manager/data/datasource/transaction_wallet_index_datasource.dart';
+import '../../../../../base/shared.dart';
+import '../../shared/interfaces/transaction_wallet_index.dart';
 import 'bloc/create_wallet_bloc.dart';
+import 'widgets/wallet_index_combobox.dart';
 
 class CreateWalletPage extends StatefulWidget {
-  const CreateWalletPage({super.key});
+  const CreateWalletPage({
+    super.key,
+    required this.createWalletBloc,
+  });
+
+  final CreateWalletBloc createWalletBloc;
 
   @override
   State<CreateWalletPage> createState() => _CreateWalletPageState();
 }
 
 class _CreateWalletPageState extends State<CreateWalletPage> {
+  final InternalValueGetter<String> _descriptionGetter = InternalValueGetter.defaultValue('');
+  final InternalValueGetter<String> _walletNameGetter = InternalValueGetter.defaultValue('');
+  final InternalValueGetter<Set<String>> _labelsGetter = InternalValueGetter.defaultValue({});
+  final InternalValueGetter<TransactionWalletIndexInterface?> _walletIndexGetter = InternalValueGetter();
+
   @override
   void initState() {
     super.initState();
-    test();
-  }
-
-  void test() async {
-    final test = TransactionWalletIndexDatasource();
-    final rs = await test.getData();
-    final a = rs.map((e) => e.toJson());
+    widget.createWalletBloc.add(const CreateWalletLoadDataEvent());
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: TitleAppBar(
-          title: context.l10n.createWalletTitle,
-        ),
-        body: BlocBuilder<CreateWalletBloc, CreateWalletState>(
+  Widget build(BuildContext context) => AppBottomSheet(
+      background: context.scheme.background,
+      hasTitle: false,
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        behavior: HitTestBehavior.opaque,
+        child: BlocBuilder<CreateWalletBloc, CreateWalletState>(
+          buildWhen: (previous, current) => current is CreateWalletLoadDataSuccessState,
           builder: (context, state) {
-            return SingleChildScrollView(
-              padding: 16.allInsets,
-              child: Column(children: [
-                AppFormTextField(
-                  hint: 'Type somethings',
-                  label: 'Text',
+            if (state is CreateWalletLoadDataSuccessState) {
+              return Padding(
+                padding: 16.horizontalTopInsets,
+                child: SingleChildScrollView(
+                  child: Column(mainAxisSize: MainAxisSize.min, children: [
+                    BlocBuilder<CreateWalletBloc, CreateWalletState>(
+                        buildWhen: (previous, current) => current is WalletErrorDataState,
+                        builder: (context, errorState) => AppFlatTextField(
+                              hint: "Type your wallet's name...",
+                              textFactor: 1.25,
+                              valueGetter: _walletNameGetter,
+                              formValidator: state.walletNameValidator,
+                              errorText: errorState.castTo<WalletErrorDataState?>()?.walletNameError,
+                            )),
+                    16.verticalSpacing,
+                    BlocBuilder<CreateWalletBloc, CreateWalletState>(
+                      buildWhen: (previous, current) => current is WalletErrorDataState,
+                      builder: (context, errorState) => WalletIndexComboBox(
+                          walletIndexGetter: _walletIndexGetter,
+                          walletIndexList: state.walletIndexList,
+                          errorText: errorState.castTo<WalletErrorDataState?>()?.walletIndexError),
+                    ),
+                    AppTextField(
+                      hint: 'Type something about your wallet...',
+                      label: 'Descriptions:',
+                      maxLines: 3,
+                      valueGetter: _descriptionGetter,
+                    ),
+                    16.verticalSpacing,
+                    AppChipTextField(
+                      label: 'Labels:',
+                      hint: 'Separate by ","',
+                      valueGetter: _labelsGetter,
+                    ),
+                    Padding(
+                      padding: MediaQuery.of(context).viewInsets,
+                      child: AppPrimaryButton(
+                        margin: 16.topInsets,
+                        text: 'Create Wallet',
+                        onTab: () {
+                          widget.createWalletBloc.add(SummitCreateWalletEvent(
+                              walletName: _walletNameGetter(),
+                              descriptions: _descriptionGetter(),
+                              index: _walletIndexGetter(),
+                              label: _labelsGetter()));
+                        },
+                      ),
+                    )
+                  ]),
                 ),
-                16.verticalSpacing,
-                AppFormTextField(
-                  hint: 'Type somethings',
-                  formValidator: (value) => value?.let((it) => it.isEmpty ? 'Please type something.' : null),
-                ),
-              ]),
-            );
+              );
+            }
+            return SizedBox.shrink();
           },
         ),
-      );
+      ));
 }

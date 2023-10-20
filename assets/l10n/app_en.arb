@@ -9,6 +9,8 @@
       }
     }
   },
+  "selectOne": "Select...",
   "@_Wallet": {},
-  "createWalletTitle":"Create New Wallet"
+  "createWalletTitle": "Create New Wallet",
+  "walletType": "Wallet Type"
 }

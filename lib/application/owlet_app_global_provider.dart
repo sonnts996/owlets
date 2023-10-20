@@ -5,7 +5,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:rowlet/rowlet.dart';
 
-import '../base/base.dart';
+import '../base/shared.dart';
 import '../base/theme/app_theme.dart';
 import 'app_routes.dart';
 
@@ -22,7 +22,7 @@ class OwletAppGlobal extends InheritedWidget {
       ..registerFactoryIfNotExist(() => appTheme,instanceName: 'OwletAppGlobal');
   }
 
-  final NavigationService<AppRoute> service;
+  final ROwletNavigationService<AppRoute> service;
   final AppRoute routes;
   final AppTheme appTheme;
 
@@ -30,7 +30,7 @@ class OwletAppGlobal extends InheritedWidget {
 
   static AppRoute get routesInst => getIt.get(instanceName: 'OwletAppGlobal');
 
-  static NavigationService<AppRoute> get serviceInst => getIt.get(instanceName: 'OwletAppGlobal');
+  static ROwletNavigationService<AppRoute> get serviceInst => getIt.get(instanceName: 'OwletAppGlobal');
 
   static OwletAppGlobal? maybeOf(BuildContext context) => context.dependOnInheritedWidgetOfExactType();
 

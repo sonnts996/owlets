@@ -4,7 +4,7 @@
 */
 import 'package:flutter/material.dart';
 
-import '../base.dart';
+import '../shared.dart';
 
 abstract class AppText extends StatelessWidget {
   const AppText(
@@ -45,7 +45,7 @@ class AppBarTitle extends AppText {
   });
 
   @override
-  TextStyle? style(BuildContext context) => context.theme.textTheme.bodyLarge;
+  TextStyle? style(BuildContext context) => context.theme.textTheme.titleMedium?.apply(fontWeightDelta: 2);
 }
 
 class AppTitle extends AppText {
@@ -59,7 +59,21 @@ class AppTitle extends AppText {
   });
 
   @override
-  TextStyle? style(BuildContext context) => context.theme.textTheme.titleMedium;
+  TextStyle? style(BuildContext context) => context.theme.textTheme.titleMedium?.apply(fontWeightDelta: 2);
+}
+
+class AppHeader extends AppText {
+  const AppHeader(
+    super.data, {
+    super.key,
+    super.textColor,
+    super.overflow,
+    super.maxLines,
+    super.textAlign,
+  });
+
+  @override
+  TextStyle? style(BuildContext context) => context.theme.textTheme.headlineSmall;
 }
 
 class AppLabel extends AppText {
@@ -76,6 +90,21 @@ class AppLabel extends AppText {
   TextStyle? style(BuildContext context) => context.theme.textTheme.labelMedium;
 }
 
+class AppHint extends AppText {
+  const AppHint(
+    super.data, {
+    super.key,
+    super.textColor,
+    super.overflow,
+    super.maxLines,
+    super.textAlign,
+  });
+
+  @override
+  TextStyle? style(BuildContext context) =>
+      context.theme.textTheme.bodyMedium?.apply(color: context.theme.colorScheme.outline);
+}
+
 class AppFormLabel extends AppText {
   const AppFormLabel(
     super.data, {
@@ -90,5 +119,76 @@ class AppFormLabel extends AppText {
   String get data => super.data.toUpperCase();
 
   @override
-  TextStyle? style(BuildContext context) => context.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.bold);
+  TextStyle? style(BuildContext context) => context.theme.textTheme.labelMedium?.copyWith(fontWeight: FontWeight.bold);
+}
+
+class AppDisplay extends AppText {
+  const AppDisplay(
+    super.data, {
+    super.key,
+    super.textColor,
+    super.overflow,
+    super.maxLines,
+    super.textAlign,
+  });
+
+  @override
+  TextStyle? style(BuildContext context) => context.theme.textTheme.bodyMedium;
+}
+
+
+class AppActionDisplay extends AppText {
+  const AppActionDisplay(
+      super.data, {
+        super.key,
+        super.textColor,
+        super.overflow,
+        super.maxLines,
+        super.textAlign,
+      });
+
+  @override
+  TextStyle? style(BuildContext context) => context.theme.textTheme.bodyMedium?.apply(fontWeightDelta: 3);
+}
+
+class AppBody extends AppText {
+  const AppBody(
+    super.data, {
+    super.key,
+    super.textColor,
+    super.overflow,
+    super.maxLines,
+    super.textAlign,
+  });
+
+  @override
+  TextStyle? style(BuildContext context) => context.theme.textTheme.bodyMedium;
+}
+
+class AppCaption extends AppText {
+  const AppCaption(
+    super.data, {
+    super.key,
+    super.textColor,
+    super.overflow,
+    super.maxLines,
+    super.textAlign,
+  });
+
+  @override
+  TextStyle? style(BuildContext context) => context.theme.textTheme.labelSmall;
+}
+
+class AppCaptionError extends AppText {
+  const AppCaptionError(
+    super.data, {
+    super.key,
+    super.textColor,
+    super.overflow,
+    super.maxLines,
+    super.textAlign,
+  });
+
+  @override
+  TextStyle? style(BuildContext context) => context.theme.textTheme.labelSmall?.copyWith(color: context.scheme.error);
 }

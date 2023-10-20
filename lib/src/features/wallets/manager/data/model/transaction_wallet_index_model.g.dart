@@ -38,6 +38,14 @@ class _$TransactionWalletIndexModelSerializer
       'inputIndex',
       serializers.serialize(object.inputIndex,
           specifiedType: const FullType(int)),
+      'color',
+      serializers.serialize(object.color, specifiedType: const FullType(int)),
+      'descriptions',
+      serializers.serialize(object.descriptions,
+          specifiedType: const FullType(String)),
+      'iconUrl',
+      serializers.serialize(object.iconUrl,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -71,6 +79,18 @@ class _$TransactionWalletIndexModelSerializer
           result.inputIndex = serializers.deserialize(value,
               specifiedType: const FullType(int))! as int;
           break;
+        case 'color':
+          result.color = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'descriptions':
+          result.descriptions = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
+        case 'iconUrl':
+          result.iconUrl = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
+          break;
       }
     }
 
@@ -87,6 +107,12 @@ class _$TransactionWalletIndexModel extends TransactionWalletIndexModel {
   final int outputIndex;
   @override
   final int inputIndex;
+  @override
+  final int color;
+  @override
+  final String descriptions;
+  @override
+  final String iconUrl;
 
   factory _$TransactionWalletIndexModel(
           [void Function(TransactionWalletIndexModelBuilder)? updates]) =>
@@ -96,7 +122,10 @@ class _$TransactionWalletIndexModel extends TransactionWalletIndexModel {
       {required this.id,
       required this.name,
       required this.outputIndex,
-      required this.inputIndex})
+      required this.inputIndex,
+      required this.color,
+      required this.descriptions,
+      required this.iconUrl})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(
         id, r'TransactionWalletIndexModel', 'id');
@@ -106,6 +135,12 @@ class _$TransactionWalletIndexModel extends TransactionWalletIndexModel {
         outputIndex, r'TransactionWalletIndexModel', 'outputIndex');
     BuiltValueNullFieldError.checkNotNull(
         inputIndex, r'TransactionWalletIndexModel', 'inputIndex');
+    BuiltValueNullFieldError.checkNotNull(
+        color, r'TransactionWalletIndexModel', 'color');
+    BuiltValueNullFieldError.checkNotNull(
+        descriptions, r'TransactionWalletIndexModel', 'descriptions');
+    BuiltValueNullFieldError.checkNotNull(
+        iconUrl, r'TransactionWalletIndexModel', 'iconUrl');
   }
 
   @override
@@ -124,7 +159,10 @@ class _$TransactionWalletIndexModel extends TransactionWalletIndexModel {
         id == other.id &&
         name == other.name &&
         outputIndex == other.outputIndex &&
-        inputIndex == other.inputIndex;
+        inputIndex == other.inputIndex &&
+        color == other.color &&
+        descriptions == other.descriptions &&
+        iconUrl == other.iconUrl;
   }
 
   @override
@@ -134,6 +172,9 @@ class _$TransactionWalletIndexModel extends TransactionWalletIndexModel {
     _$hash = $jc(_$hash, name.hashCode);
     _$hash = $jc(_$hash, outputIndex.hashCode);
     _$hash = $jc(_$hash, inputIndex.hashCode);
+    _$hash = $jc(_$hash, color.hashCode);
+    _$hash = $jc(_$hash, descriptions.hashCode);
+    _$hash = $jc(_$hash, iconUrl.hashCode);
     _$hash = $jf(_$hash);
     return _$hash;
   }
@@ -144,7 +185,10 @@ class _$TransactionWalletIndexModel extends TransactionWalletIndexModel {
           ..add('id', id)
           ..add('name', name)
           ..add('outputIndex', outputIndex)
-          ..add('inputIndex', inputIndex))
+          ..add('inputIndex', inputIndex)
+          ..add('color', color)
+          ..add('descriptions', descriptions)
+          ..add('iconUrl', iconUrl))
         .toString();
   }
 }
@@ -171,6 +215,18 @@ class TransactionWalletIndexModelBuilder
   int? get inputIndex => _$this._inputIndex;
   set inputIndex(int? inputIndex) => _$this._inputIndex = inputIndex;
 
+  int? _color;
+  int? get color => _$this._color;
+  set color(int? color) => _$this._color = color;
+
+  String? _descriptions;
+  String? get descriptions => _$this._descriptions;
+  set descriptions(String? descriptions) => _$this._descriptions = descriptions;
+
+  String? _iconUrl;
+  String? get iconUrl => _$this._iconUrl;
+  set iconUrl(String? iconUrl) => _$this._iconUrl = iconUrl;
+
   TransactionWalletIndexModelBuilder();
 
   TransactionWalletIndexModelBuilder get _$this {
@@ -180,6 +236,9 @@ class TransactionWalletIndexModelBuilder
       _name = $v.name;
       _outputIndex = $v.outputIndex;
       _inputIndex = $v.inputIndex;
+      _color = $v.color;
+      _descriptions = $v.descriptions;
+      _iconUrl = $v.iconUrl;
       _$v = null;
     }
     return this;
@@ -209,7 +268,13 @@ class TransactionWalletIndexModelBuilder
             outputIndex: BuiltValueNullFieldError.checkNotNull(
                 outputIndex, r'TransactionWalletIndexModel', 'outputIndex'),
             inputIndex: BuiltValueNullFieldError.checkNotNull(
-                inputIndex, r'TransactionWalletIndexModel', 'inputIndex'));
+                inputIndex, r'TransactionWalletIndexModel', 'inputIndex'),
+            color: BuiltValueNullFieldError.checkNotNull(
+                color, r'TransactionWalletIndexModel', 'color'),
+            descriptions: BuiltValueNullFieldError.checkNotNull(
+                descriptions, r'TransactionWalletIndexModel', 'descriptions'),
+            iconUrl: BuiltValueNullFieldError.checkNotNull(
+                iconUrl, r'TransactionWalletIndexModel', 'iconUrl'));
     replace(_$result);
     return _$result;
   }

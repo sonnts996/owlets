@@ -20,5 +20,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get selectOne => 'Select...';
+
+  @override
   String get createWalletTitle => 'Create New Wallet';
+
+  @override
+  String get walletType => 'Wallet Type';
 }

@@ -6,12 +6,12 @@ import 'package:rowlet/rowlet.dart';
 
 import '../presentations/home_page.dart';
 
-class HomeRoute extends MaterialBuilder {
-  HomeRoute(super.path)
+class HomeRoute extends MaterialRouteBuilder {
+  HomeRoute(super.segmentPath)
       : super(
-          materialBuilder: (context, settings) => HomePage(),
+          pageBuilder: (context, settings) => HomePage(),
         );
 
   @override
-  List<RouteBase> get routes => [];
+  List<RouteSegment> get children => [];
 }

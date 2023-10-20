@@ -11,6 +11,28 @@ class AppDecoration {
   final ColorScheme colorScheme;
   final TextTheme textTheme;
 
+  List<BoxShadow> get primaryShadow {
+    if (colorScheme.brightness == Brightness.light) {
+      return [
+        BoxShadow(
+          color: colorScheme.shadow.withOpacity(0.04),
+          blurRadius: 10,
+          spreadRadius: 4,
+          offset: Offset(0, 5),
+        ),
+        BoxShadow(
+          color: colorScheme.shadow.withOpacity(0.023),
+          blurRadius: 10,
+          spreadRadius: 6,
+          offset: Offset(0, 10),
+        )
+      ];
+    }
+    return [];
+  }
+
+  EdgeInsets get normalFieldInset => EdgeInsets.symmetric(vertical: 8, horizontal: 12);
+
   Gradient get primaryGradient => LinearGradient(colors: [
         Color(0xFF4D4DFF),
         Color(0xFF4784FA),
@@ -28,28 +50,33 @@ class AppDecoration {
 
   BoxDecoration get secondaryButton => BoxDecoration();
 
-  BoxDecoration get fieldBackground =>
-      BoxDecoration(color: colorScheme.surfaceVariant, borderRadius: 8.circleBorderRadius);
+  BoxDecoration get primaryTile => BoxDecoration(gradient: primaryGradient, borderRadius: 16.circleBorderRadius);
+
+  BoxDecoration get secondaryTile =>
+      BoxDecoration(color: colorScheme.surface, borderRadius: 24.circleBorderRadius,);
+
+  /// AppForm
+  BoxDecoration get fieldBackground => BoxDecoration(color: colorScheme.surface, borderRadius: 8.circleBorderRadius);
+
+  BoxDecoration get fieldFocusBackground => BoxDecoration(
+      color: colorScheme.surface,
+      borderRadius: 8.circleBorderRadius,
+      border: Border.all(color: colorScheme.inversePrimary));
 
   BoxDecoration get fieldErrorBackground => BoxDecoration(
-      color: colorScheme.errorContainer,
-      borderRadius: 8.circleBorderRadius,
-      border: Border.all(color: colorScheme.error));
+      color: colorScheme.surface, borderRadius: 8.circleBorderRadius, border: Border.all(color: colorScheme.error));
 
-  InputDecoration get primaryTextField => InputDecoration(
+  /// TextField
+  InputDecorationTheme get flatTextField => InputDecorationTheme(
         isDense: true,
-        errorStyle: TextStyle(height: 0),
-        fillColor: colorScheme.surfaceVariant,
-        filled: true,
-        enabledBorder: OutlineInputBorder(borderRadius: 8.circleBorderRadius, borderSide: BorderSide.none),
-        focusedErrorBorder: OutlineInputBorder(
-            borderRadius: 8.circleBorderRadius, borderSide: BorderSide(color: colorScheme.inversePrimary, width: 1)),
-        disabledBorder: OutlineInputBorder(
-            borderRadius: 8.circleBorderRadius, borderSide: BorderSide(color: colorScheme.secondary, width: 1)),
-        errorBorder: OutlineInputBorder(
-            borderRadius: 8.circleBorderRadius, borderSide: BorderSide(color: colorScheme.errorContainer, width: 1)),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: 8.circleBorderRadius, borderSide: BorderSide(color: colorScheme.inversePrimary, width: 1)),
+        errorStyle: TextStyle(height: 0, fontSize: 0),
+        fillColor: Colors.transparent,
+        filled: false,
+        enabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+        focusedErrorBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.inversePrimary, width: 1.5)),
+        disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.secondary, width: 1.5)),
+        errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.errorContainer, width: 1.5)),
+        focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.inversePrimary, width: 1.5)),
         hintStyle: textTheme.bodyMedium?.apply(color: colorScheme.outline),
       );
 }

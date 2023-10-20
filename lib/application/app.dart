@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:rowlet/rowlet.dart';
 
-import '../base/base.dart';
+import '../base/shared.dart';
 import '../base/theme/app_theme.dart';
 import '../gen/l10n/app_localizations.dart';
 import 'app_routes.dart';
@@ -21,11 +21,13 @@ class OwletApp extends StatefulWidget {
 
 class _OwletAppState extends State<OwletApp> {
   final AppTheme appTheme = AppTheme();
-  final NavigationService<AppRoute> navigatorService = NavigationService<AppRoute>(
+  final AppRoute appRoute = AppRoute();
+  late final ROwletNavigationService<AppRoute> navigatorService = ROwletNavigationService<AppRoute>(
     navigationKey: GlobalKey(),
     routeObservers: [],
     trailingSlash: true,
-    routeBase: AppRoute('/'),
+    routeBase: appRoute,
+    initialRoute: '/'
   );
 
   @override
@@ -50,7 +52,7 @@ class _OwletAppState extends State<OwletApp> {
           ),
         ),
         service: navigatorService,
-        routes: navigatorService.routeBase!,
+        routes: navigatorService.routeBase,
         appTheme: appTheme,
       );
 }

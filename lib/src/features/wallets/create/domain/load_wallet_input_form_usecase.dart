@@ -4,9 +4,9 @@
 */
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+import 'package:owlet_flutter/owlets.dart';
 
-import '../../../../../base/base.dart';
-import '../../wallets.dart';
+import '../../shared.dart';
 
 @LazySingleton()
 class LoadWalletInputFormUseCase with UseCaseWithoutParams<Either<OBException, List<TransactionWalletIndexInterface>>> {

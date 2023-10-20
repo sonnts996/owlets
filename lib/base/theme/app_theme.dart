@@ -8,12 +8,13 @@ import 'package:owlet_flutter/owlets.dart';
 
 import 'app_components.dart';
 import 'app_scheme.dart';
+import 'app_theme_light.dart';
 import 'components/app_animations.dart';
 import 'components/app_decorations.dart';
 
 class AppTheme extends LightDarkObject<ThemeData> with ThemeModeGetter<ThemeData>, ChangeNotifier {
   AppTheme({
-    ThemeMode themeMode = ThemeMode.system,
+    ThemeMode themeMode = ThemeMode.light,
     this.appSchemes = const AppSchemes(),
   })  : _themeMode = themeMode,
         super();
@@ -22,7 +23,14 @@ class AppTheme extends LightDarkObject<ThemeData> with ThemeModeGetter<ThemeData
 
   final AppSchemes appSchemes;
 
-  final TextTheme origin = GoogleFonts.openSansTextTheme();
+  final TextTheme origin = GoogleFonts.nunitoTextTheme();
+
+  late final AppThemeLight _themeLight = AppThemeLight(
+      scheme: appSchemes.light,
+      textTheme: origin.apply(
+        bodyColor: Color(0xFF424242),
+        displayColor: Color(0xFF424242),
+      ));
 
   AppComponents get component => current.extension<AppComponents>()!;
 
@@ -54,30 +62,5 @@ class AppTheme extends LightDarkObject<ThemeData> with ThemeModeGetter<ThemeData
           ]);
 
   @override
-  ThemeData? get lightValueImpl => ThemeData.light(useMaterial3: true).copyWith(
-          colorScheme: appSchemes.light,
-          scaffoldBackgroundColor: appSchemes.light.background,
-          textTheme: origin.apply(
-            bodyColor: Color(0xFF424242),
-            displayColor: Color(0xFF424242),
-          ),
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
-            iconSize: 32,
-            foregroundColor: appSchemes.light.onPrimary,
-          ),
-          appBarTheme: AppBarTheme(
-            elevation: 0,
-            foregroundColor: appSchemes.light.onPrimary,
-          ),
-          extensions: [
-            AppComponents(
-              animations: AppAnimations(),
-              decoration: AppDecoration(
-                  colorScheme: appSchemes.light,
-                  textTheme: origin.apply(
-                    bodyColor: Color(0xFF424242),
-                    displayColor: Color(0xFF424242),
-                  )),
-            )
-          ]);
+  ThemeData? get lightValueImpl => _themeLight.theme;
 }

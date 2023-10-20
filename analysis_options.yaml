@@ -25,6 +25,7 @@ linter:
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
 
     - use_key_in_widget_constructors: true
+    - prefer_contains: true
 
 
 # Additional information about this file can be found at

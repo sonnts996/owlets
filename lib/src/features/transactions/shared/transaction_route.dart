@@ -2,20 +2,18 @@
  Created by Thanh Son on 20/09/2023.
  Copyright (c) 2023 . All rights reserved.
 */
-import 'package:flutter/cupertino.dart';
 import 'package:rowlet/rowlet.dart';
 
 import '../create/presentations/create_transaction_page.dart';
 
-@immutable
-class TransactionRoute extends RouteBase {
-  TransactionRoute(super.path);
+class TransactionRoute extends RouteSegment {
+  TransactionRoute(super.segmentPath);
 
-  final create = MaterialBuilder(
+  final create = MaterialRouteBuilder(
     '/create',
-    materialBuilder: (context, settings) => CreateTransactionPage(),
+    pageBuilder: (context, settings) => CreateTransactionPage(),
   );
 
   @override
-  List<RouteBase> get routes => [create];
+  List<RouteSegment> get children => [create];
 }

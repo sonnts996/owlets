@@ -4,7 +4,7 @@
 */
 import 'package:built_collection/built_collection.dart';
 
-import '../../../wallets/wallets.dart';
+import '../../../wallets/shared.dart';
 
 mixin TransactionLineInterface {
   DateTime get createTime;
@@ -17,7 +17,7 @@ mixin TransactionLineInterface {
 
   String get note;
 
-  BuiltList<TransactionLabelInterface> get label;
+  BuiltList<String> get label;
 
   TransactionWalletInterface get topUpWallet;
 

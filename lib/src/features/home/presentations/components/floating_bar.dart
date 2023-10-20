@@ -3,10 +3,10 @@
  Copyright (c) 2023 . All rights reserved.
 */
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:owlet_flutter/owlets.dart';
 
-import '../../../../../base/base.dart';
+import '../../../../../base/shared.dart';
+import '../../../../../gen/assets.gen.dart';
 
 class FloatingBar extends StatefulWidget {
   const FloatingBar({
@@ -77,11 +77,9 @@ class _FloatingBarState extends State<FloatingBar> {
                   ? Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        10.horizontalSpacing,
-                        CircleAvatar(
-                            backgroundColor: context.scheme.background,
-                            child: Placeholder(fallbackHeight: 32, fallbackWidth: 32)),
-                        12.horizontalSpacing,
+                        28.horizontalSpacing,
+                        Assets.image.logoOwlet.svg(height: 56, width: 56),
+                        20.horizontalSpacing,
                         Expanded(
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -109,16 +107,3 @@ class _FloatingBarState extends State<FloatingBar> {
       );
 }
 
-class AddFloatingBarIcon extends StatelessWidget {
-  const AddFloatingBarIcon({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.add,
-        color: context.theme.floatingActionButtonTheme.foregroundColor,
-        size: context.theme.floatingActionButtonTheme.iconSize,
-        semanticLabel: 'add-new',
-      );
-}

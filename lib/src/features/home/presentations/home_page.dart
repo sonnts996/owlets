@@ -3,12 +3,14 @@
  Copyright (c) 2023 . All rights reserved.
 */
 import 'package:flutter/material.dart';
-import 'package:owlet_flutter/owlets.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:rowlet/rowlet.dart';
 
 import '../../../../application/owlet_app_global_provider.dart';
-import '../../../../base/base.dart';
+import '../../../../base/shared.dart';
 import 'components/floating_bar.dart';
+import 'components/menus/create_wallet_menu.dart';
+import 'components/menus/manage_wallet_menu.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,27 +24,37 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+      extendBody: false,
+      extendBodyBehindAppBar: false,
       floatingActionButton: FloatingBar(
         mainScrollController: _scrollController,
         initialWidth: MediaQuery.of(context).size.width - 64,
-        onTab: () {
-          OwletAppGlobal.routesInst.wallet.create.pushNamed(context);
-        },
+        onTab: () {},
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: NestedScrollView(
-        controller: _scrollController,
-        headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          SliverAppBar(flexibleSpace: FlexibleSpaceBar(title: AppBarTitle('Hello'))),
-        ],
-        body: Center(
-            child: Padding(
-          padding: 16.allInsets,
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Text('What is Lorem Ipsum?', style: context.theme.textTheme.headlineLarge),
-            Text(
-                "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."),
-          ]),
-        )),
-      ));
+          controller: _scrollController,
+          headerSliverBuilder: (context, innerBoxIsScrolled) => [
+                SliverAppBar(
+                  surfaceTintColor: context.scheme.background,
+                  title: AppBarTitle('WOwlet'),
+                  centerTitle: true,
+                  pinned: true,
+                  titleSpacing: 16,
+                ),
+              ],
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: StaggeredGrid.count(
+              crossAxisCount: 4,
+              children: [
+                ManageWalletMenu(onTab: () {
+                  OwletAppGlobal.routesInst.wallet.manager.pushNamed(context);
+                }),
+                CreateWalletMenu(onTab: () {
+                  OwletAppGlobal.routesInst.wallet.create.pushNamed(context);
+                }),
+              ],
+            ),
+          )));
 }

@@ -2,32 +2,34 @@
  Created by Thanh Son on 20/09/2023.
  Copyright (c) 2023 . All rights reserved.
 */
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rowlet/rowlet.dart';
 
-import '../../../../base/base.dart';
-import '../create/presentations/bloc/create_wallet_bloc.dart';
-import '../create/presentations/create_wallet_page.dart';
+import '../../../../base/shared.dart';
+import '../create/shared.dart';
+import '../manager/presentations/bloc/wallet_manager_bloc.dart';
 import '../manager/presentations/wallet_manager_page.dart';
 
-@immutable
-class WalletRoute extends RouteBase {
-  WalletRoute(super.path);
+class WalletRoute extends MaterialRouteBuilder {
+  WalletRoute(super.segmentPath);
 
-  final create = MaterialBuilder(
-    '/create',
-    materialBuilder: (context, settings) => BlocProvider(
-      create: (context) => getIt.get<CreateWalletBloc>(),
-      child: CreateWalletPage(),
-    ),
-  );
+  @override
+  PageBuilder? get pageBuilder => (context, settings) => Container();
 
-  final manager = MaterialBuilder(
+  final create =  CreateWalletRoute('/create');
+
+  final manager = MaterialRouteBuilder(
     '/manager',
-    materialBuilder: (context, settings) => WalletManagerPage(),
+    pageBuilder: (context, settings) {
+      final bloc = getIt.get<WalletManagerBloc>();
+      return BlocProvider(
+        create: (context) => bloc,
+        child: WalletManagerPage(managerBloc: bloc),
+      );
+    },
   );
 
   @override
-  List<RouteBase> get routes => [create, manager];
+  List<RouteSegment> get children => [create, manager];
 }

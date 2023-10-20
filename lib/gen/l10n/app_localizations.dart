@@ -97,11 +97,23 @@ abstract class AppLocalizations {
   /// **'{canPop, select, false{Back to home} true{Back to previous page} other{Back to home}}'**
   String pageNotFoundButton(String canPop);
 
+  /// No description provided for @selectOne.
+  ///
+  /// In en, this message translates to:
+  /// **'Select...'**
+  String get selectOne;
+
   /// No description provided for @createWalletTitle.
   ///
   /// In en, this message translates to:
   /// **'Create New Wallet'**
   String get createWalletTitle;
+
+  /// No description provided for @walletType.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet Type'**
+  String get walletType;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
