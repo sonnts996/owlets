@@ -1,0 +1,6 @@
+arb-dir: l10n
+output-dir: lib/gen/l10n
+synthetic-package: false
+template-arb-file: app_en.arb
+output-localization-file: app_localizations.dart
+output-class: OwletS
