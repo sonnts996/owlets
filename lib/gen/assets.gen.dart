@@ -36,12 +36,20 @@ class $AssetsImageGen {
 class $AssetsImageAnimationsGen {
   const $AssetsImageAnimationsGen();
 
+  /// File path: assets/image/animations/ic_close.json
+  LottieGenImage get icClose =>
+      const LottieGenImage('assets/image/animations/ic_close.json');
+
+  /// File path: assets/image/animations/ic_loading.json
+  LottieGenImage get icLoading =>
+      const LottieGenImage('assets/image/animations/ic_loading.json');
+
   /// File path: assets/image/animations/success_animations.json
   LottieGenImage get successAnimations =>
       const LottieGenImage('assets/image/animations/success_animations.json');
 
   /// List of all assets
-  List<LottieGenImage> get values => [successAnimations];
+  List<LottieGenImage> get values => [icClose, icLoading, successAnimations];
 }
 
 class $AssetsImageIconsGen {

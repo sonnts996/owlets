@@ -8,11 +8,13 @@ part of 'create_wallet_usecase.dart';
 
 class _$CreateWalletParams extends CreateWalletParams {
   @override
-  final String id;
+  final Object id;
   @override
   final TransactionWalletIndexInterface walletIndex;
   @override
   final String name;
+  @override
+  final Color color;
   @override
   final List<String> label;
   @override
@@ -26,6 +28,7 @@ class _$CreateWalletParams extends CreateWalletParams {
       {required this.id,
       required this.walletIndex,
       required this.name,
+      required this.color,
       required this.label,
       required this.descriptions})
       : super._() {
@@ -33,6 +36,8 @@ class _$CreateWalletParams extends CreateWalletParams {
     BuiltValueNullFieldError.checkNotNull(
         walletIndex, r'CreateWalletParams', 'walletIndex');
     BuiltValueNullFieldError.checkNotNull(name, r'CreateWalletParams', 'name');
+    BuiltValueNullFieldError.checkNotNull(
+        color, r'CreateWalletParams', 'color');
     BuiltValueNullFieldError.checkNotNull(
         label, r'CreateWalletParams', 'label');
     BuiltValueNullFieldError.checkNotNull(
@@ -55,6 +60,7 @@ class _$CreateWalletParams extends CreateWalletParams {
         id == other.id &&
         walletIndex == other.walletIndex &&
         name == other.name &&
+        color == other.color &&
         label == other.label &&
         descriptions == other.descriptions;
   }
@@ -65,6 +71,7 @@ class _$CreateWalletParams extends CreateWalletParams {
     _$hash = $jc(_$hash, id.hashCode);
     _$hash = $jc(_$hash, walletIndex.hashCode);
     _$hash = $jc(_$hash, name.hashCode);
+    _$hash = $jc(_$hash, color.hashCode);
     _$hash = $jc(_$hash, label.hashCode);
     _$hash = $jc(_$hash, descriptions.hashCode);
     _$hash = $jf(_$hash);
@@ -77,6 +84,7 @@ class _$CreateWalletParams extends CreateWalletParams {
           ..add('id', id)
           ..add('walletIndex', walletIndex)
           ..add('name', name)
+          ..add('color', color)
           ..add('label', label)
           ..add('descriptions', descriptions))
         .toString();
@@ -87,9 +95,9 @@ class CreateWalletParamsBuilder
     implements Builder<CreateWalletParams, CreateWalletParamsBuilder> {
   _$CreateWalletParams? _$v;
 
-  String? _id;
-  String? get id => _$this._id;
-  set id(String? id) => _$this._id = id;
+  Object? _id;
+  Object? get id => _$this._id;
+  set id(Object? id) => _$this._id = id;
 
   TransactionWalletIndexInterface? _walletIndex;
   TransactionWalletIndexInterface? get walletIndex => _$this._walletIndex;
@@ -99,6 +107,10 @@ class CreateWalletParamsBuilder
   String? _name;
   String? get name => _$this._name;
   set name(String? name) => _$this._name = name;
+
+  Color? _color;
+  Color? get color => _$this._color;
+  set color(Color? color) => _$this._color = color;
 
   List<String>? _label;
   List<String>? get label => _$this._label;
@@ -118,6 +130,7 @@ class CreateWalletParamsBuilder
       _id = $v.id;
       _walletIndex = $v.walletIndex;
       _name = $v.name;
+      _color = $v.color;
       _label = $v.label;
       _descriptions = $v.descriptions;
       _$v = null;
@@ -148,6 +161,8 @@ class CreateWalletParamsBuilder
                 walletIndex, r'CreateWalletParams', 'walletIndex'),
             name: BuiltValueNullFieldError.checkNotNull(
                 name, r'CreateWalletParams', 'name'),
+            color: BuiltValueNullFieldError.checkNotNull(
+                color, r'CreateWalletParams', 'color'),
             label: BuiltValueNullFieldError.checkNotNull(
                 label, r'CreateWalletParams', 'label'),
             descriptions: BuiltValueNullFieldError.checkNotNull(
@@ -158,3 +173,9 @@ class CreateWalletParamsBuilder
 }
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint
+
+// **************************************************************************
+// RealmObjectGenerator
+// **************************************************************************
+
+// ignore_for_file: type=lint

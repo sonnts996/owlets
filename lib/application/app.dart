@@ -4,7 +4,7 @@
 */
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:rowlet/rowlet.dart';
+import 'package:owlet_router/router.dart';
 
 import '../base/shared.dart';
 import '../base/theme/app_theme.dart';
@@ -13,7 +13,7 @@ import 'app_routes.dart';
 import 'owlet_app_global_provider.dart';
 
 class OwletApp extends StatefulWidget {
-  const OwletApp();
+  const OwletApp({super.key});
 
   @override
   State<StatefulWidget> createState() => _OwletAppState();
@@ -22,12 +22,11 @@ class OwletApp extends StatefulWidget {
 class _OwletAppState extends State<OwletApp> {
   final AppTheme appTheme = AppTheme();
   final AppRoute appRoute = AppRoute();
-  late final ROwletNavigationService<AppRoute> navigatorService = ROwletNavigationService<AppRoute>(
+  late final NavigationService<AppRoute> navigatorService = NavigationService<AppRoute>(
     navigationKey: GlobalKey(),
     routeObservers: [],
-    trailingSlash: true,
-    routeBase: appRoute,
-    initialRoute: '/'
+    initialRoute: '/',
+    route: appRoute,
   );
 
   @override
@@ -38,6 +37,9 @@ class _OwletAppState extends State<OwletApp> {
 
   @override
   Widget build(BuildContext context) => OwletAppGlobal(
+    service: navigatorService,
+        routes: navigatorService.route,
+        appTheme: appTheme,
         child: ScreenUtilInit(
           child: ListenableBuilder(
             listenable: appTheme,
@@ -51,8 +53,5 @@ class _OwletAppState extends State<OwletApp> {
             ),
           ),
         ),
-        service: navigatorService,
-        routes: navigatorService.routeBase,
-        appTheme: appTheme,
       );
 }

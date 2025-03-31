@@ -2,16 +2,22 @@
  Created by Thanh Son on 21/09/2023.
  Copyright (c) 2023 . All rights reserved.
 */
+import 'dart:ui';
+
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 
+import '../../../../../../base/shared.dart';
 import '../../../shared/interfaces/transaction_wallet_index.dart';
 
 part 'transaction_wallet_index_model.g.dart';
 
 @SerializersFor([TransactionWalletIndexModel])
-final Serializers _serializers = (_$_serializers.toBuilder()..addPlugin(StandardJsonPlugin())).build();
+final Serializers _serializers = (_$_serializers.toBuilder()
+      ..add(ColorSerializer())
+      ..addPlugin(StandardJsonPlugin()))
+    .build();
 
 abstract class TransactionWalletIndexModel
     with TransactionWalletIndexInterface
@@ -25,7 +31,7 @@ abstract class TransactionWalletIndexModel
       _serializers.deserializeWith(TransactionWalletIndexModel.serializer, json)!;
 
   Map<String, dynamic> toJson() =>
-      _serializers.serializeWith(TransactionWalletIndexModel.serializer, this) as Map<String, dynamic>;
+      _serializers.serializeWith(TransactionWalletIndexModel.serializer, this)! as Map<String, dynamic>;
 
   static Serializer<TransactionWalletIndexModel> get serializer => _$transactionWalletIndexModelSerializer;
 }

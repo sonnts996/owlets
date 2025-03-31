@@ -12,5 +12,5 @@ abstract class WalletManagerRepository {
 
   Future<Either<OBException, List<TransactionWalletInterface>>> getWallets();
 
-  Future<Either<OBException, void>> createWallet(TransactionWalletInterface newWallet);
+  Future<Either<OBException, TransactionWalletInterface>> createWallet(TransactionWalletInterface newWallet);
 }

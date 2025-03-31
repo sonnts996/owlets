@@ -8,8 +8,13 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import '../../../../../../base/shared.dart';
 
 class BaseItemMenu extends StatelessWidget {
-  const BaseItemMenu(
-      {super.key, required this.child, this.crossAxisCellCount = 1, this.mainAxisCellCount = 1, this.onTab});
+  const BaseItemMenu({
+    required this.child,
+    super.key,
+    this.crossAxisCellCount = 1,
+    this.mainAxisCellCount = 1,
+    this.onTab,
+  });
 
   final Widget child;
   final int crossAxisCellCount;

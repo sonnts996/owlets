@@ -11,15 +11,16 @@
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
+import '../../base/components/toast/app_toast.dart' as _i3;
 import '../../src/features/wallets/create/domain/create_wallet_usecase.dart'
     as _i8;
 import '../../src/features/wallets/create/domain/load_wallet_input_form_usecase.dart'
     as _i10;
 import '../../src/features/wallets/create/presentations/bloc/create_wallet_bloc.dart'
     as _i13;
-import '../../src/features/wallets/manager/data/datasource/transaction_wallet_index_datasource.dart'
+import '../../src/features/wallets/manager/data/datasource/transaction_wallet_datasource.dart'
     as _i4;
-import '../../src/features/wallets/manager/data/realm/transaction_wallet_realm.dart'
+import '../../src/features/wallets/manager/data/datasource/transaction_wallet_index_datasource.dart'
     as _i5;
 import '../../src/features/wallets/manager/data/wallet_manager_repository_impl.dart'
     as _i7;
@@ -30,7 +31,6 @@ import '../../src/features/wallets/manager/presentations/bloc/wallet_manager_blo
 import '../../src/features/wallets/shared.dart' as _i9;
 import '../../src/features/wallets/shared/domain/wallet_manager_repository.dart'
     as _i6;
-import '../components/app_toast.dart' as _i3;
 
 extension GetItInjectableX on _i1.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -43,17 +43,15 @@ extension GetItInjectableX on _i1.GetIt {
       environment,
       environmentFilter,
     );
-    gh.factory<_i3.AppToast>(() => _i3.AppToast.create());
-    gh.lazySingleton<_i4.TransactionWalletIndexDatasource>(
-        () => const _i4.TransactionWalletIndexDatasource());
-    gh.lazySingleton<_i5.TransactionWalletRealm>(
-      () => _i5.TransactionWalletRealm(),
-      dispose: (i) => i.close(),
-    );
+    gh.lazySingleton<_i3.AppToast>(() => _i3.AppToast.create());
+    gh.lazySingleton<_i4.TransactionWalletDatasource>(
+        () => _i4.TransactionWalletDatasource.create());
+    gh.lazySingleton<_i5.TransactionWalletIndexDatasource>(
+        () => const _i5.TransactionWalletIndexDatasource());
     gh.lazySingleton<_i6.WalletManagerRepository>(
         () => _i7.WalletManagerRepositoryImpl(
-              walletIndexDatasource: gh<_i4.TransactionWalletIndexDatasource>(),
-              walletRealm: gh<_i5.TransactionWalletRealm>(),
+              walletIndexDatasource: gh<_i5.TransactionWalletIndexDatasource>(),
+              walletDatasource: gh<_i4.TransactionWalletDatasource>(),
             ));
     gh.lazySingleton<_i8.CreateWalletUseCase>(() =>
         _i8.CreateWalletUseCase(repository: gh<_i9.WalletManagerRepository>()));
@@ -65,10 +63,13 @@ extension GetItInjectableX on _i1.GetIt {
             repository: gh<_i9.WalletManagerRepository>()));
     gh.factory<_i12.WalletManagerBloc>(() => _i12.WalletManagerBloc(
         loadWalletListUseCase: gh<_i11.LoadWalletListUseCase>()));
-    gh.factory<_i13.CreateWalletBloc>(() => _i13.CreateWalletBloc(
-          loadWalletInputFormUseCase: gh<_i10.LoadWalletInputFormUseCase>(),
-          createWalletUseCase: gh<_i8.CreateWalletUseCase>(),
-        ));
+    gh.lazySingleton<_i13.CreateWalletBloc>(
+      () => _i13.CreateWalletBloc(
+        loadWalletInputFormUseCase: gh<_i10.LoadWalletInputFormUseCase>(),
+        createWalletUseCase: gh<_i8.CreateWalletUseCase>(),
+      ),
+      dispose: (i) => i.close(),
+    );
     return this;
   }
 }

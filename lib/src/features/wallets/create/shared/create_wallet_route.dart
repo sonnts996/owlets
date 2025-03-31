@@ -3,9 +3,9 @@
  Copyright (c) 2023 . All rights reserved.
 */
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:objectx/objectx.dart';
-import 'package:rowlet/rowlet.dart';
+import 'package:owlet_router/router.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../../base/shared.dart';
 import '../../shared.dart';
@@ -13,19 +13,19 @@ import '../presentations/bloc/create_wallet_bloc.dart';
 import '../presentations/create_wallet_page.dart';
 import '../presentations/widgets/wallet_index_selector.dart';
 
-class CreateWalletRoute extends RouteBuilder {
+class CreateWalletRoute extends RouteBuilder<void, TransactionWalletInterface> {
   CreateWalletRoute(super.segmentPath);
 
-  @override
-  Route<Object?>? builder(RouteSettings settings) {
+  Route<TransactionWalletInterface>? builder(RouteSettings settings) {
     final bloc = getIt.get<CreateWalletBloc>();
     return ModalBottomSheetRoute(
       settings: settings,
+      enableDrag: true,
       isScrollControlled: true,
-      builder: (context) => BlocProvider(
-          create: (context) => bloc,
-          child: CreateWalletPage(createWalletBloc: bloc),
-        ),
+      builder: (context) => Provider(
+        create: (context) => bloc,
+        child: CreateWalletPage(createWalletBloc: bloc),
+      ),
     );
   }
 
@@ -39,7 +39,7 @@ class CreateWalletRoute extends RouteBuilder {
       return ModalBottomSheetRoute(
         settings: settings,
         useSafeArea: true,
-        isScrollControlled: false,
+        isScrollControlled: true,
         builder: (context) => WalletIndexPopupSelector(
           walletIndexList: params.walletIndexList,
           controller: params.controller,
@@ -49,7 +49,7 @@ class CreateWalletRoute extends RouteBuilder {
   );
 
   @override
-  List<RouteSegment> get children => [walletIndexPopup];
+  List<RouteMixin> get children => [walletIndexPopup];
 }
 
 class WalletIndexPopupParams {

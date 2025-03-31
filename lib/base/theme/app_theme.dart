@@ -28,8 +28,8 @@ class AppTheme extends LightDarkObject<ThemeData> with ThemeModeGetter<ThemeData
   late final AppThemeLight _themeLight = AppThemeLight(
       scheme: appSchemes.light,
       textTheme: origin.apply(
-        bodyColor: Color(0xFF424242),
-        displayColor: Color(0xFF424242),
+        bodyColor: const Color(0xFF424242),
+        displayColor: const Color(0xFF424242),
       ));
 
   AppComponents get component => current.extension<AppComponents>()!;
@@ -46,17 +46,17 @@ class AppTheme extends LightDarkObject<ThemeData> with ThemeModeGetter<ThemeData
   ThemeData? get darkValueImpl => ThemeData.dark(useMaterial3: true).copyWith(
           colorScheme: appSchemes.dark,
           textTheme: origin.apply(
-            bodyColor: Color(0xFFFFFFFF),
-            displayColor: Color(0xFFFFFFFF),
+            bodyColor: const Color(0xFFFFFFFF),
+            displayColor: const Color(0xFFFFFFFF),
           ),
           extensions: [
             AppComponents(
-              animations: AppAnimations(),
+              animations: const AppAnimations(),
               decoration: AppDecoration(
                   colorScheme: appSchemes.dark,
                   textTheme: origin.apply(
-                    bodyColor: Color(0xFFFFFFFF),
-                    displayColor: Color(0xFFFFFFFF),
+                    bodyColor: const Color(0xFFFFFFFF),
+                    displayColor: const Color(0xFFFFFFFF),
                   )),
             )
           ]);

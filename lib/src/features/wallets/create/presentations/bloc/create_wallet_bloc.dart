@@ -7,25 +7,32 @@ import 'package:injectable/injectable.dart';
 import 'package:objectx/objectx.dart';
 import 'package:owlet_flutter/owlets.dart';
 
+import '../../../shared/interfaces/transaction_wallet.dart';
 import '../../../shared/interfaces/transaction_wallet_index.dart';
 import '../../domain/create_wallet_usecase.dart';
 import '../../domain/load_wallet_input_form_usecase.dart';
 
 part 'create_wallet_event.dart';
-
 part 'create_wallet_state.dart';
 
-@injectable
+@LazySingleton()
 class CreateWalletBloc extends BlocCore<CreateWalletEvent, CreateWalletState> {
   @factoryMethod
   CreateWalletBloc({required this.loadWalletInputFormUseCase, required this.createWalletUseCase})
       : super(CreateWalletInitial(), blocName: 'CreateWalletBloc') {
     on<CreateWalletLoadDataEvent>(_onCreateWalletLoadData);
     on<SummitCreateWalletEvent>(_onSummitCreateWallet);
+    on<CreateWalletResetEvent>((event, emit) => emit(CreateWalletInitial()));
   }
 
   final LoadWalletInputFormUseCase loadWalletInputFormUseCase;
   final CreateWalletUseCase createWalletUseCase;
+
+  @disposeMethod
+  @override
+  Future<void> close() async {
+    super.close();
+  }
 
   FutureOr<void> _onCreateWalletLoadData(CreateWalletLoadDataEvent event, Emitter<CreateWalletState> emit) async {
     final result = await loadWalletInputFormUseCase.execute();
@@ -34,7 +41,7 @@ class CreateWalletBloc extends BlocCore<CreateWalletEvent, CreateWalletState> {
         (r) => CreateWalletLoadDataSuccessState(
               walletIndexList: r,
               walletNameValidator: (value) {
-                if (value?.isEmpty == true) return "Please type wallet's name";
+                if (value?.isEmpty ?? false) return "Please type wallet's name";
                 return null;
               },
             )));
@@ -42,7 +49,7 @@ class CreateWalletBloc extends BlocCore<CreateWalletEvent, CreateWalletState> {
 
   FutureOr<void> _onSummitCreateWallet(SummitCreateWalletEvent event, Emitter<CreateWalletState> emit) async {
     if (event.index == null || event.walletName.isEmpty) {
-      emit(WalletErrorDataState(
+      emit(CreateWalletErrorDataState(
           walletIndexError: event.index?.let((it) => null) ?? 'Please choose wallet type',
           walletNameError: event.walletName.isEmpty ? "Please type wallet's name" : null));
     } else {
@@ -51,9 +58,10 @@ class CreateWalletBloc extends BlocCore<CreateWalletEvent, CreateWalletState> {
           ..name = event.walletName
           ..label = event.label.toList()
           ..descriptions = event.descriptions
-          ..walletIndex = event.index,
+          ..walletIndex = event.index
+          ..color = event.color,
       ));
-      result.fold(print, (r) => null);
+      result.fold((l) => emit(CreateWalletErrorState(l)), (r) => emit(CreateWalletDoneDataState(r)));
     }
   }
 }

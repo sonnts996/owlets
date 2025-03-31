@@ -3,7 +3,7 @@
  Copyright (c) 2023 . All rights reserved.
 */
 import 'package:flutter/cupertino.dart';
-import 'package:rowlet/rowlet.dart';
+import 'package:owlet_router/router.dart';
 
 import '../base/shared.dart';
 import '../base/theme/app_theme.dart';
@@ -15,14 +15,15 @@ class OwletAppGlobal extends InheritedWidget {
     required this.service,
     required this.routes,
     required this.appTheme,
+    super.key,
   }) {
     getIt
       ..registerFactoryIfNotExist(() => service, instanceName: 'OwletAppGlobal')
-      ..registerFactoryIfNotExist(() => routes,instanceName: 'OwletAppGlobal')
-      ..registerFactoryIfNotExist(() => appTheme,instanceName: 'OwletAppGlobal');
+      ..registerFactoryIfNotExist(() => routes, instanceName: 'OwletAppGlobal')
+      ..registerFactoryIfNotExist(() => appTheme, instanceName: 'OwletAppGlobal');
   }
 
-  final ROwletNavigationService<AppRoute> service;
+  final NavigationService<AppRoute> service;
   final AppRoute routes;
   final AppTheme appTheme;
 
@@ -30,7 +31,7 @@ class OwletAppGlobal extends InheritedWidget {
 
   static AppRoute get routesInst => getIt.get(instanceName: 'OwletAppGlobal');
 
-  static ROwletNavigationService<AppRoute> get serviceInst => getIt.get(instanceName: 'OwletAppGlobal');
+  static NavigationService<AppRoute> get serviceInst => getIt.get(instanceName: 'OwletAppGlobal');
 
   static OwletAppGlobal? maybeOf(BuildContext context) => context.dependOnInheritedWidgetOfExactType();
 

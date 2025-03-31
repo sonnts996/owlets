@@ -16,9 +16,15 @@ class AppThemeLight {
   final ColorScheme scheme;
   final TextTheme textTheme;
   late final ThemeData theme = ThemeData.light(useMaterial3: true).copyWith(
+      primaryColor: const Color(0xff0066ff),
       colorScheme: scheme,
       scaffoldBackgroundColor: scheme.background,
-      canvasColor: Colors.transparent,
+      canvasColor: scheme.background,
+      pageTransitionsTheme: const PageTransitionsTheme(builders: {
+        TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.macOS: CupertinoPageTransitionsBuilder(),
+      }),
       bottomSheetTheme: BottomSheetThemeData(
         backgroundColor: Colors.transparent,
         modalBackgroundColor: Colors.transparent,
@@ -39,25 +45,20 @@ class AppThemeLight {
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         iconSize: 32,
         foregroundColor: scheme.onPrimary,
-        sizeConstraints: BoxConstraints(minHeight: 50, minWidth: 50),
+        sizeConstraints: const BoxConstraints(minHeight: 50, minWidth: 50),
       ),
       appBarTheme: AppBarTheme(
         elevation: 0,
         backgroundColor: scheme.background,
         surfaceTintColor: scheme.background,
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-      ),
-      chipTheme: ChipThemeData(
-        backgroundColor: scheme.surfaceVariant,
-        shape: RoundedRectangleBorder(borderRadius: 100.circleBorderRadius),
-        surfaceTintColor: scheme.surfaceVariant,
-        labelStyle: textTheme.labelSmall?.apply(color: scheme.onSurfaceVariant),
-        iconTheme: IconThemeData(size: 16, color: scheme.onSurfaceVariant),
-        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        systemOverlayStyle: SystemUiOverlayStyle.light.copyWith(
+            systemNavigationBarColor: scheme.background,
+            statusBarIconBrightness: Brightness.dark,
+            statusBarColor: Colors.transparent),
       ),
       inputDecorationTheme: InputDecorationTheme(
         isDense: true,
-        errorStyle: TextStyle(height: 0, fontSize: 0),
+        errorStyle: const TextStyle(height: 0, fontSize: 0),
         fillColor: scheme.surface,
         filled: true,
         enabledBorder: OutlineInputBorder(borderRadius: 8.circleBorderRadius, borderSide: BorderSide.none),
@@ -73,12 +74,12 @@ class AppThemeLight {
       ),
       extensions: [
         AppComponents(
-          animations: AppAnimations(),
+          animations: const AppAnimations(),
           decoration: AppDecoration(
               colorScheme: scheme,
               textTheme: textTheme.apply(
-                bodyColor: Color(0xFF424242),
-                displayColor: Color(0xFF424242),
+                bodyColor: const Color(0xFF424242),
+                displayColor: const Color(0xFF424242),
               )),
         )
       ]);

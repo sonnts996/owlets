@@ -4,11 +4,12 @@
 */
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:rowlet/rowlet.dart';
+import 'package:owlet_router/router.dart';
 
 import '../../../../application/owlet_app_global_provider.dart';
 import '../../../../base/shared.dart';
 import 'components/floating_bar.dart';
+import 'components/menus/base_menu.dart';
 import 'components/menus/create_wallet_menu.dart';
 import 'components/menus/manage_wallet_menu.dart';
 
@@ -37,23 +38,24 @@ class _HomePageState extends State<HomePage> {
           headerSliverBuilder: (context, innerBoxIsScrolled) => [
                 SliverAppBar(
                   surfaceTintColor: context.scheme.background,
-                  title: AppBarTitle('WOwlet'),
+                  title: const AppBarTitle('WOwlet'),
                   centerTitle: true,
                   pinned: true,
                   titleSpacing: 16,
                 ),
               ],
           body: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: StaggeredGrid.count(
               crossAxisCount: 4,
               children: [
                 ManageWalletMenu(onTab: () {
-                  OwletAppGlobal.routesInst.wallet.manager.pushNamed(context);
+                  OwletAppGlobal.routesInst.wallet.manager.pushNamed();
                 }),
                 CreateWalletMenu(onTab: () {
-                  OwletAppGlobal.routesInst.wallet.create.pushNamed(context);
+                  OwletAppGlobal.routesInst.wallet.create.pushNamed();
                 }),
+                const BaseItemMenu(mainAxisCellCount: 2, crossAxisCellCount: 2, child: LoaderIcon())
               ],
             ),
           )));

@@ -6,6 +6,7 @@ part of 'transaction_wallet_index_realm_model.dart';
 // RealmObjectGenerator
 // **************************************************************************
 
+// ignore_for_file: type=lint
 class TransactionWalletIndexRealmModel extends $TransactionWalletIndexRealmModel
     with RealmEntity, RealmObjectBase, RealmObject {
   static var _defaultsSet = false;
@@ -13,7 +14,7 @@ class TransactionWalletIndexRealmModel extends $TransactionWalletIndexRealmModel
   TransactionWalletIndexRealmModel(
     int id,
     String name, {
-    int color = 0,
+    String? colorHex,
     String descriptions = '',
     String iconUrl = '',
     int inputIndex = 0,
@@ -22,14 +23,13 @@ class TransactionWalletIndexRealmModel extends $TransactionWalletIndexRealmModel
     if (!_defaultsSet) {
       _defaultsSet =
           RealmObjectBase.setDefaults<TransactionWalletIndexRealmModel>({
-        'color': 0,
         'descriptions': '',
         'iconUrl': '',
         'inputIndex': 0,
         'outputIndex': 0,
       });
     }
-    RealmObjectBase.set(this, 'color', color);
+    RealmObjectBase.set(this, 'color', colorHex);
     RealmObjectBase.set(this, 'descriptions', descriptions);
     RealmObjectBase.set(this, 'iconUrl', iconUrl);
     RealmObjectBase.set(this, 'id', id);
@@ -41,9 +41,9 @@ class TransactionWalletIndexRealmModel extends $TransactionWalletIndexRealmModel
   TransactionWalletIndexRealmModel._();
 
   @override
-  int get color => RealmObjectBase.get<int>(this, 'color') as int;
+  String? get colorHex => RealmObjectBase.get<String>(this, 'color') as String?;
   @override
-  set color(int value) => RealmObjectBase.set(this, 'color', value);
+  set colorHex(String? value) => RealmObjectBase.set(this, 'color', value);
 
   @override
   String get descriptions =>
@@ -91,7 +91,8 @@ class TransactionWalletIndexRealmModel extends $TransactionWalletIndexRealmModel
     RealmObjectBase.registerFactory(TransactionWalletIndexRealmModel._);
     return const SchemaObject(ObjectType.realmObject,
         TransactionWalletIndexRealmModel, 'TransactionWalletIndexRealmModel', [
-      SchemaProperty('color', RealmPropertyType.int),
+      SchemaProperty('colorHex', RealmPropertyType.string,
+          mapTo: 'color', optional: true),
       SchemaProperty('descriptions', RealmPropertyType.string),
       SchemaProperty('iconUrl', RealmPropertyType.string),
       SchemaProperty('id', RealmPropertyType.int, primaryKey: true),

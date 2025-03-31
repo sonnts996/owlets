@@ -18,27 +18,27 @@ class AppDecoration {
           color: colorScheme.shadow.withOpacity(0.04),
           blurRadius: 10,
           spreadRadius: 4,
-          offset: Offset(0, 5),
+          offset: const Offset(0, 5),
         ),
         BoxShadow(
           color: colorScheme.shadow.withOpacity(0.023),
           blurRadius: 10,
           spreadRadius: 6,
-          offset: Offset(0, 10),
+          offset: const Offset(0, 10),
         )
       ];
     }
     return [];
   }
 
-  EdgeInsets get normalFieldInset => EdgeInsets.symmetric(vertical: 8, horizontal: 12);
+  EdgeInsets get normalFieldInset => const EdgeInsets.symmetric(vertical: 8, horizontal: 12);
 
-  Gradient get primaryGradient => LinearGradient(colors: [
+  Gradient get primaryGradient => const LinearGradient(colors: [
         Color(0xFF4D4DFF),
         Color(0xFF4784FA),
       ], begin: Alignment.centerRight, end: Alignment.bottomLeft);
 
-  Gradient get higherGradient => LinearGradient(colors: [
+  Gradient get higherGradient => const LinearGradient(colors: [
         Color(0xFF4D4DFF),
         Color(0xFF0000FF),
       ], stops: [
@@ -48,7 +48,7 @@ class AppDecoration {
 
   BoxDecoration get primaryButton => BoxDecoration(gradient: primaryGradient, borderRadius: 100.circleBorderRadius);
 
-  BoxDecoration get secondaryButton => BoxDecoration();
+  BoxDecoration get secondaryButton => const BoxDecoration();
 
   BoxDecoration get primaryTile => BoxDecoration(gradient: primaryGradient, borderRadius: 16.circleBorderRadius);
 
@@ -69,10 +69,10 @@ class AppDecoration {
   /// TextField
   InputDecorationTheme get flatTextField => InputDecorationTheme(
         isDense: true,
-        errorStyle: TextStyle(height: 0, fontSize: 0),
+        errorStyle: const TextStyle(height: 0, fontSize: 0),
         fillColor: Colors.transparent,
         filled: false,
-        enabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+        enabledBorder: const UnderlineInputBorder(borderSide: BorderSide.none),
         focusedErrorBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.inversePrimary, width: 1.5)),
         disabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.secondary, width: 1.5)),
         errorBorder: UnderlineInputBorder(borderSide: BorderSide(color: colorScheme.errorContainer, width: 1.5)),

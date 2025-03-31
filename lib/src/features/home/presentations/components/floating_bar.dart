@@ -10,10 +10,10 @@ import '../../../../../gen/assets.gen.dart';
 
 class FloatingBar extends StatefulWidget {
   const FloatingBar({
-    super.key,
     required this.mainScrollController,
-    this.initialWidth = double.infinity,
     required this.onTab,
+    super.key,
+    this.initialWidth = double.infinity,
   });
 
   final ScrollController mainScrollController;
@@ -27,6 +27,7 @@ class FloatingBar extends StatefulWidget {
 class _FloatingBarState extends State<FloatingBar> {
   late double width;
   bool isExpanded = true;
+  bool shouldDisplayContent = true;
 
   @override
   void initState() {
@@ -53,11 +54,13 @@ class _FloatingBarState extends State<FloatingBar> {
       setState(() {
         width = 64;
         isExpanded = false;
+        shouldDisplayContent = false;
       });
     } else {
       setState(() {
         width = MediaQuery.of(context).size.width - 2 * 32;
         isExpanded = true;
+        shouldDisplayContent = false;
       });
     }
   }
@@ -66,14 +69,21 @@ class _FloatingBarState extends State<FloatingBar> {
   Widget build(BuildContext context) => Align(
         alignment: Alignment.bottomRight,
         child: AnimatedContainer(
-          duration: Duration(milliseconds: 350),
+          duration: const Duration(milliseconds: 350),
           height: 64,
           margin: 32.allInsets,
           width: width,
+          onEnd: () {
+            if (isExpanded) {
+              setState(() {
+                shouldDisplayContent = true;
+              });
+            }
+          },
           child: CustomPrimaryButton(
               semanticLabel: 'add-new',
               onTab: widget.onTab,
-              child: isExpanded
+              child: shouldDisplayContent
                   ? Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -102,8 +112,7 @@ class _FloatingBarState extends State<FloatingBar> {
                         16.horizontalSpacing,
                       ],
                     )
-                  : AddFloatingBarIcon()),
+                  : (isExpanded ? const SizedBox() : const AddFloatingBarIcon())),
         ),
       );
 }
-

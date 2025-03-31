@@ -5,7 +5,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:owlet_flutter/owlets.dart';
-import 'package:rowlet/rowlet.dart';
+import 'package:owlet_router/router.dart';
 
 import '../../../../../../application/owlet_app_global_provider.dart';
 import '../../../../../../base/shared.dart';
@@ -15,23 +15,23 @@ import '../../shared.dart';
 
 class WalletIndexComboBox extends StatelessWidget {
   const WalletIndexComboBox({
-    super.key,
     required InternalValueGetter<TransactionWalletIndexInterface?> walletIndexGetter,
-    this.errorText,
     required this.walletIndexList,
+    super.key,
+    this.errorText,
   }) : _walletIndexGetter = walletIndexGetter;
 
   final InternalValueGetter<TransactionWalletIndexInterface?> _walletIndexGetter;
   final String? errorText;
   final List<TransactionWalletIndexInterface> walletIndexList;
 
-  bool get shouldShowError => errorText?.isNotEmpty == true;
+  bool get shouldShowError => errorText?.isNotEmpty ?? false;
 
   @override
   Widget build(BuildContext context) => AppComboBox<TransactionWalletIndexInterface>(
       valueGetter: _walletIndexGetter,
       nothingBuilder: (context, focusNode) => Padding(
-          padding: shouldShowError ? EdgeInsets.zero : EdgeInsets.only(bottom: 16),
+          padding: shouldShowError ? EdgeInsets.zero : const EdgeInsets.only(bottom: 16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -48,17 +48,18 @@ class WalletIndexComboBox extends StatelessWidget {
                 focusNode: focusNode,
                 child: SelectableIconTextTile(
                     label: value.name,
-                    padding: EdgeInsets.fromLTRB(0, 8, 16, 8),
+                    padding: const EdgeInsets.fromLTRB(0, 8, 16, 8),
                     icon: BoxIcon(
-                      child: AssetGenImage(value.iconUrl).image(),
                       size: 32,
                       inset: 2,
                       backgroundColor: context.scheme.surface,
+                      child: AssetGenImage(value.iconUrl).image(),
                     ))),
-            IconTextTile(prefixIcon: Icon(CupertinoIcons.info_circle, size: 16), child: AppCaption(value.descriptions)),
+            IconTextTile(
+                prefixIcon: const Icon(CupertinoIcons.info_circle, size: 16), child: AppCaption(value.descriptions)),
           ]),
-      onTab: (context, controller) => OwletAppGlobal.routesInst.wallet.create.walletIndexPopup.pushNamed(context,
-          args: WalletIndexPopupParams(
+      onTab: (context, controller) => OwletAppGlobal.routesInst.wallet.create.walletIndexPopup.pushNamed(
+              args: WalletIndexPopupParams(
             walletIndexList: walletIndexList,
             controller: controller,
           )));

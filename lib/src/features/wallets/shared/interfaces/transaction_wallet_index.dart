@@ -3,6 +3,8 @@
  Copyright (c) 2023 . All rights reserved.
 */
 
+import 'dart:ui';
+
 enum WalletIndexType {
   income(1),
   expense(-1),
@@ -10,7 +12,7 @@ enum WalletIndexType {
 
   const WalletIndexType(this.value);
 
-  static of(int value) {
+  static WalletIndexType of(int value) {
     if (value > 0) {
       return WalletIndexType.income;
     } else if (value < 0) {
@@ -31,7 +33,7 @@ mixin TransactionWalletIndexInterface {
 
   int get inputIndex;
 
-  int get color;
+  Color get color;
 
   String get descriptions;
 

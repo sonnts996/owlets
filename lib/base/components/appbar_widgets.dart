@@ -6,11 +6,10 @@ import 'package:flutter/material.dart';
 
 import '../shared.dart';
 
-
 class TitleAppBar extends StatelessWidget implements PreferredSizeWidget {
   const TitleAppBar({
-    super.key,
     required this.title,
+    super.key,
     this.leading,
     this.actions = const [],
     this.bottom,
@@ -49,13 +48,13 @@ class TitleAppBar extends StatelessWidget implements PreferredSizeWidget {
       );
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class BaseTitleAppBar extends StatelessWidget implements PreferredSizeWidget {
   const BaseTitleAppBar({
-    super.key,
     required this.title,
+    super.key,
     this.leading,
     this.actions = const [],
     this.bottom,
@@ -86,5 +85,5 @@ class BaseTitleAppBar extends StatelessWidget implements PreferredSizeWidget {
       );
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

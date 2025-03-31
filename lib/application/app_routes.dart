@@ -3,14 +3,14 @@
  Copyright (c) 2023 . All rights reserved.
 */
 import 'package:owlet_flutter/owlets.dart';
-import 'package:rowlet/rowlet.dart';
+import 'package:owlet_router/router.dart';
 
 import '../src/features/home/shared.dart';
 import '../src/features/transactions/shared.dart';
 import '../src/features/wallets/shared.dart';
 
-class AppRoute extends OriginRoute {
-  AppRoute();
+class AppRoute extends RouteBase {
+  AppRoute():super.root();
 
   final home = HomeRoute('/');
 
@@ -20,11 +20,11 @@ class AppRoute extends OriginRoute {
 
   final schemeTest = MaterialRouteBuilder(
     '/schemeTest',
-    pageBuilder: (context, settings) => SchemePalette(),
+    pageBuilder: (context, settings) => const SchemePalette(),
   );
 
   @override
-  List<RouteSegment> get children => [
+  List<RouteMixin> get children => [
         home,
         transactions,
         wallet,

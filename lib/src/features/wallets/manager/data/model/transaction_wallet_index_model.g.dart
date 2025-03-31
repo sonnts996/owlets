@@ -39,7 +39,7 @@ class _$TransactionWalletIndexModelSerializer
       serializers.serialize(object.inputIndex,
           specifiedType: const FullType(int)),
       'color',
-      serializers.serialize(object.color, specifiedType: const FullType(int)),
+      serializers.serialize(object.color, specifiedType: const FullType(Color)),
       'descriptions',
       serializers.serialize(object.descriptions,
           specifiedType: const FullType(String)),
@@ -81,7 +81,7 @@ class _$TransactionWalletIndexModelSerializer
           break;
         case 'color':
           result.color = serializers.deserialize(value,
-              specifiedType: const FullType(int))! as int;
+              specifiedType: const FullType(Color))! as Color;
           break;
         case 'descriptions':
           result.descriptions = serializers.deserialize(value,
@@ -108,7 +108,7 @@ class _$TransactionWalletIndexModel extends TransactionWalletIndexModel {
   @override
   final int inputIndex;
   @override
-  final int color;
+  final Color color;
   @override
   final String descriptions;
   @override
@@ -215,9 +215,9 @@ class TransactionWalletIndexModelBuilder
   int? get inputIndex => _$this._inputIndex;
   set inputIndex(int? inputIndex) => _$this._inputIndex = inputIndex;
 
-  int? _color;
-  int? get color => _$this._color;
-  set color(int? color) => _$this._color = color;
+  Color? _color;
+  Color? get color => _$this._color;
+  set color(Color? color) => _$this._color = color;
 
   String? _descriptions;
   String? get descriptions => _$this._descriptions;
@@ -281,3 +281,9 @@ class TransactionWalletIndexModelBuilder
 }
 
 // ignore_for_file: deprecated_member_use_from_same_package,type=lint
+
+// **************************************************************************
+// RealmObjectGenerator
+// **************************************************************************
+
+// ignore_for_file: type=lint

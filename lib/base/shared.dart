@@ -3,4 +3,5 @@
  Copyright (c) 2023 . All rights reserved.
 */
 export 'components/shared.dart';
+export 'serializable/shared.dart';
 export 'utilities/shared.dart';

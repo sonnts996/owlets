@@ -10,15 +10,21 @@ class CreateWalletLoadDataEvent extends CreateWalletEvent {
 }
 
 class SummitCreateWalletEvent extends CreateWalletEvent {
-  SummitCreateWalletEvent({
+  const SummitCreateWalletEvent({
     required this.walletName,
     required this.descriptions,
     required this.index,
     required this.label,
+    required this.color,
   });
 
   final String walletName;
   final String descriptions;
   final TransactionWalletIndexInterface? index;
   final Set<String> label;
+  final Color color;
+}
+
+class CreateWalletResetEvent extends CreateWalletEvent{
+  const CreateWalletResetEvent();
 }

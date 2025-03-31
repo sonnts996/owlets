@@ -2,6 +2,10 @@
  Created by Thanh Son on 02/10/2023.
  Copyright (c) 2023 . All rights reserved.
 */
+import 'dart:ui';
+
+import 'package:objectx/objectx.dart';
+import 'package:owlet_flutter/owlets.dart';
 import 'package:realm/realm.dart';
 
 import '../../../../shared.dart';
@@ -16,7 +20,7 @@ class _TransactionWalletRealmModel with TransactionWalletInterface {
 
   @override
   @PrimaryKey()
-  late String id;
+  ObjectId id = ObjectId();
 
   @override
   List<String> label = [];
@@ -24,8 +28,16 @@ class _TransactionWalletRealmModel with TransactionWalletInterface {
   @override
   late String name;
 
+  @MapTo('walletIndex')
   $TransactionWalletIndexRealmModel? walletIndexIml;
 
   @override
+  @Ignored()
   TransactionWalletIndexInterface get walletIndex => walletIndexIml!;
+
+  @MapTo('color')
+  String? colorHex;
+
+  @override
+  Color get color => colorHex?.let(ColorX.fromHex) ?? const Color(0x00000000);
 }

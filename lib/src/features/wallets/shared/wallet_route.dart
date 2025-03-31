@@ -4,7 +4,7 @@
 */
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rowlet/rowlet.dart';
+import 'package:owlet_router/router.dart';
 
 import '../../../../base/shared.dart';
 import '../create/shared.dart';
@@ -31,5 +31,5 @@ class WalletRoute extends MaterialRouteBuilder {
   );
 
   @override
-  List<RouteSegment> get children => [create, manager];
+  List<RouteMixin> get children => [create, manager];
 }

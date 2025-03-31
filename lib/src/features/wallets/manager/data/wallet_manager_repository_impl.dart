@@ -9,18 +9,19 @@ import 'package:owlet_flutter/owlets.dart';
 import '../../shared/domain/wallet_manager_repository.dart';
 import '../../shared/interfaces/transaction_wallet.dart';
 import '../../shared/interfaces/transaction_wallet_index.dart';
+import 'datasource/transaction_wallet_datasource.dart';
 import 'datasource/transaction_wallet_index_datasource.dart';
-import 'realm/transaction_wallet_realm.dart';
 
 @LazySingleton(as: WalletManagerRepository)
 class WalletManagerRepositoryImpl extends WalletManagerRepository {
+  @FactoryMethod()
   WalletManagerRepositoryImpl({
     required this.walletIndexDatasource,
-    required this.walletRealm,
+    required this.walletDatasource,
   });
 
   final TransactionWalletIndexDatasource walletIndexDatasource;
-  final TransactionWalletRealm walletRealm;
+  final TransactionWalletDatasource walletDatasource;
 
   @override
   Future<Either<OBException, List<TransactionWalletIndexInterface>>> getWalletIndex() async {
@@ -30,31 +31,31 @@ class WalletManagerRepositoryImpl extends WalletManagerRepository {
     } on OBException catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(OBException(error: e));
+      return Left(OBException.lazy(e));
     }
   }
 
   @override
-  Future<Either<OBException, void>> createWallet(TransactionWalletInterface newWallet) async {
+  Future<Either<OBException, TransactionWalletInterface>> createWallet(TransactionWalletInterface newWallet) async {
     try {
-      walletRealm.createWallet(newWallet);
-      return Right(null);
+      final result = await walletDatasource.createWallet(newWallet);
+      return Right(result);
     } on OBException catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(OBException(error: e));
+      return Left(OBException.lazy(e));
     }
   }
 
   @override
   Future<Either<OBException, List<TransactionWalletInterface>>> getWallets() async {
     try {
-      final result = walletRealm.getWallets();
+      final result = walletDatasource.getWallets();
       return Right(result);
     } on OBException catch (e) {
       return Left(e);
     } catch (e) {
-      return Left(OBException(error: e));
+      return Left(OBException.lazy(e));
     }
   }
 }

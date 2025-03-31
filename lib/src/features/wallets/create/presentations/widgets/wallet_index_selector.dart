@@ -12,9 +12,9 @@ import '../../../shared.dart';
 
 class WalletIndexPopupSelector extends StatelessWidget {
   const WalletIndexPopupSelector({
-    super.key,
     required this.walletIndexList,
     required this.controller,
+    super.key,
   });
 
   final List<TransactionWalletIndexInterface> walletIndexList;
@@ -22,28 +22,30 @@ class WalletIndexPopupSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => AppBottomSheet(
-    background: context.scheme.surface,
-    child: AppListItemSheet(
-        itemCount: walletIndexList.length,
-        padding: 8.topLeftInsets,
-        itemBuilder: (context, index) {
-          final item = walletIndexList[index];
-          return AppSelectable(
-            controller: controller,
-            value: item,
-            builder: (isSelected) => SelectableIconTextTile(
-                label: item.name,
-                selected: isSelected,
-                icon: BoxIcon(
-                  child: AssetGenImage(item.iconUrl).image(),
-                  size: 32,
-                  inset: 2,
-                  backgroundColor: context.scheme.surface,
-                ),
-                onTab: (value) {
-                  Navigator.pop(context, item);
-                }),
-          );
-        }),
-  );
+        background: context.scheme.surface,
+        child: ListView.builder(
+            shrinkWrap: true,
+            physics: const ClampingScrollPhysics(),
+            itemCount: walletIndexList.length,
+            padding: 16.verticalLeftInsets,
+            itemBuilder: (context, index) {
+              final item = walletIndexList[index];
+              return AppSelectable(
+                controller: controller,
+                value: item,
+                builder: (isSelected) => SelectableIconTextTile(
+                    label: item.name,
+                    selected: isSelected,
+                    icon: BoxIcon(
+                      size: 32,
+                      inset: 2,
+                      backgroundColor: context.scheme.surface,
+                      child: AssetGenImage(item.iconUrl).image(),
+                    ),
+                    onTab: (value) {
+                      Navigator.pop(context, item);
+                    }),
+              );
+            }),
+      );
 }

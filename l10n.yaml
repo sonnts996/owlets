@@ -4,3 +4,4 @@ synthetic-package: false
 template-arb-file: app_en.arb
 output-localization-file: app_localizations.dart
 output-class: AppLocalizations
+suppress-warnings: true

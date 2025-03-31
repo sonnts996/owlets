@@ -5,12 +5,12 @@
 import 'package:flutter/material.dart';
 import 'package:owlet_flutter/owlets.dart';
 
-import '../shared.dart';
+import '../../shared.dart';
 
 class AppForm extends StatelessWidget {
   const AppForm({
-    super.key,
     required this.child,
+    super.key,
     this.label,
     this.errorText,
   });
@@ -33,14 +33,14 @@ class AppForm extends StatelessWidget {
                 child: AppFormLabel(label!),
               ),
             child,
-            if (isError) ErrorTextTile(errorText: errorText!, verticalPadding: 4.allInsets),
+            if (isError) ErrorTextTile(errorText: errorText, verticalPadding: 4.allInsets),
           ]);
 }
 
 class AppDecorationForm extends StatefulWidget {
   const AppDecorationForm({
-    super.key,
     required this.child,
+    super.key,
     this.label,
     this.errorText,
     this.isError,
@@ -84,7 +84,7 @@ class _AppDecorationFormState extends State<AppDecorationForm> {
       required BoxDecoration focusDecoration}) {
     if (_isError) {
       return errorDecoration;
-    } else if (widget.focusNode?.hasFocus == true) {
+    } else if (widget.focusNode?.hasFocus ?? false) {
       return focusDecoration;
     }
     return normalDecoration;

@@ -11,7 +11,7 @@ class CreateWalletInitial extends CreateWalletState {
 }
 
 class CreateWalletErrorState extends CreateWalletState {
-  CreateWalletErrorState(this.exception);
+  const CreateWalletErrorState(this.exception);
 
   final OBException exception;
 
@@ -20,7 +20,7 @@ class CreateWalletErrorState extends CreateWalletState {
 }
 
 class CreateWalletLoadDataSuccessState extends CreateWalletState {
-  CreateWalletLoadDataSuccessState({
+  const CreateWalletLoadDataSuccessState({
     required this.walletIndexList,
     required this.walletNameValidator,
   });
@@ -32,8 +32,8 @@ class CreateWalletLoadDataSuccessState extends CreateWalletState {
   List<Object?> get props => [walletIndexList, walletNameValidator];
 }
 
-class WalletErrorDataState extends CreateWalletState {
-  WalletErrorDataState({
+class CreateWalletErrorDataState extends CreateWalletState {
+  const CreateWalletErrorDataState({
     this.walletIndexError,
     this.walletNameError,
   });
@@ -43,4 +43,13 @@ class WalletErrorDataState extends CreateWalletState {
 
   @override
   List<Object?> get props => [walletIndexError, walletNameError];
+}
+
+class CreateWalletDoneDataState extends CreateWalletState {
+  const CreateWalletDoneDataState(this.wallet);
+
+  final TransactionWalletInterface wallet;
+
+  @override
+  List<Object?> get props => [wallet];
 }

@@ -2,6 +2,8 @@
  Created by Thanh Son on 04/10/2023.
  Copyright (c) 2023 . All rights reserved.
 */
+import 'dart:ui';
+
 import 'package:built_value/built_value.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -23,11 +25,11 @@ abstract class CreateWalletParams
 }
 
 @LazySingleton()
-class CreateWalletUseCase with UseCase<CreateWalletParams, Either<OBException, void>> {
+class CreateWalletUseCase with UseCase<CreateWalletParams, Either<OBException, TransactionWalletInterface>> {
   CreateWalletUseCase({required this.repository});
 
   final WalletManagerRepository repository;
 
   @override
-  Future<Either<OBException, void>> execute(CreateWalletParams params) => repository.createWallet(params);
+  Future<Either<OBException, TransactionWalletInterface>> execute(CreateWalletParams params) => repository.createWallet(params);
 }
